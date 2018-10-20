@@ -80,9 +80,17 @@ class Delegate(val mViewGroup: ViewGroup) {
         if (draggingUp) {
             // as we use the absolute magnitude when calculating the drag fraction, need to
             // re-apply the drag direction
-            dragTo *= -1;
+            dragTo *= -1
         }
         mViewGroup.translationY = dragTo
+    }
+
+    fun onStopNestedScroll(child: View?) {
+        // if the drag is too fast it probably was not an intentional drag but a fling, don't dismiss
+        val dragTime: Long = System.currentTimeMillis() - scrollStartTimestamp
+        totalDrag = 0
+        draggingDown = false
+        draggingUp = false
     }
 
     companion object {

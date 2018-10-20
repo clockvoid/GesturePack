@@ -41,4 +41,8 @@ class DraggableFrameLayout : FrameLayout, NestedScrollingParent {
         Log.d("scroll", "scrolling")
         delegate.onNestedScroll(target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed)
     }
+
+    override fun onStopNestedScroll(p0: View) {
+        delegate.onStopNestedScroll(p0)
+    }
 }
