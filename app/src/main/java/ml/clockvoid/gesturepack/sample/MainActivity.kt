@@ -1,4 +1,4 @@
-package ml.clockvoid.gesturepack
+package ml.clockvoid.gesturepack.sample
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle

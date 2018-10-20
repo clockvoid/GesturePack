@@ -1,4 +1,4 @@
-package ml.clockvoid.gesturepack
+package ml.clockvoid.sample
 
 import org.junit.Test
 

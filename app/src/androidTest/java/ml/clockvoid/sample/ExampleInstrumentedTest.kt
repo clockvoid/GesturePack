@@ -1,4 +1,4 @@
-package ml.clockvoid.gesturepack
+package ml.clockvoid.sample
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
