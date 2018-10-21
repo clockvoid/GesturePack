@@ -2,6 +2,9 @@ package ml.clockvoid.gesturepack
 
 import android.content.Context
 import android.content.res.TypedArray
+import android.support.v4.view.NestedScrollingParent
+import android.support.v4.widget.NestedScrollView
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import ml.clockvoid.gesturepack.Delegate.Companion.DRAG_DURATION_BUFFER
@@ -42,15 +45,15 @@ class HorizontalDelegate(private val mViewGroup: ViewGroup) : Delegate {
     }
 
     override fun onNestedPreScroll(target: View, dx: Int, dy: Int, consumed: IntArray) {
-        if (draggingRight && dx > 0 || draggingLeft && dx < 0) {
-            dragScale(dx)
-            consumed[1] = dx
-        }
+        //if (draggingRight && dx < 0 || draggingLeft && dx > 0) {
+        //    dragScale(dx)
+        //    consumed[1] = dx
+        //}
     }
 
     override fun onStartNestedScroll(child: View, target: View, nestedScrollAxes: Int): Boolean {
         scrollStartTimestamp = System.currentTimeMillis()
-        return (nestedScrollAxes and Delegate.SCROLL_AXIS_HORIZONTAL) != 0
+        return (nestedScrollAxes and NestedScrollView.SCROLL_AXIS_HORIZONTAL) != 0
     }
 
     override fun onNestedScroll(target: View, dxConsumed: Int, dyConsumed: Int, dxUnconsumed: Int, dyUnconsumed: Int) {
@@ -79,15 +82,14 @@ class HorizontalDelegate(private val mViewGroup: ViewGroup) : Delegate {
     }
 
     override fun onStopNestedScroll(child: View?) {
-        // if the drag is too fast it probably was not an intentional drag but a fling, don't dismiss
-
+        Log.d("stop scrolling", "when translationX is $totalDrag")
         // if the drag is too fast it probably was not an intentional drag but a fling, don't dismiss
         val dragTime:Long = System.currentTimeMillis() - scrollStartTimestamp
         if (dragTime > DRAG_DURATION_BUFFER) {
             dispatchDismissCallback()
         } else {
             totalDrag = 0
-            mViewGroup.translationY = totalDrag.toFloat()
+            mViewGroup.translationX = totalDrag.toFloat()
         }
         draggingRight = false
         draggingLeft = false

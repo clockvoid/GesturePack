@@ -74,7 +74,7 @@ class VerticalDelegate(private val mViewGroup: ViewGroup) : Delegate {
 
     override fun onStopNestedScroll(child: View?) {
         // if the drag is too fast it probably was not an intentional drag but a fling, don't dismiss
-        val dragTime:Long = System.currentTimeMillis() - scrollStartTimestamp
+        val dragTime: Long = System.currentTimeMillis() - scrollStartTimestamp
         if (dragTime > DRAG_DURATION_BUFFER) {
             dispatchDismissCallback()
         } else {
