@@ -18,9 +18,16 @@ interface Delegate {
 
     fun onStopNestedScroll(child: View?)
 
+    fun addListener(callback: Callback)
+
+    fun dispatchDragCallback(elasticOffset: Float, elasticOffsetPixels: Float, rawOffset: Float, rawOffsetPixels: Float)
+
+    fun dispatchDismissCallback()
+
     companion object {
         //copied from View in API 21
         const val SCROLL_AXIS_VERTICAL: Int = 1 shl 1
         const val SCROLL_AXIS_HORIZONTAL: Int = 1
+        const val DRAG_DURATION_BUFFER: Long = 150L
     }
 }

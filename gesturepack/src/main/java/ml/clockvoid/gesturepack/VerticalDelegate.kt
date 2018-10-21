@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.view.View
 import android.view.ViewGroup
+import ml.clockvoid.gesturepack.Delegate.Companion.DRAG_DURATION_BUFFER
 import ml.clockvoid.gesturepack.R.attr.dragDismissFraction
 
 class VerticalDelegate(private val mViewGroup: ViewGroup) : Delegate {
@@ -15,6 +16,8 @@ class VerticalDelegate(private val mViewGroup: ViewGroup) : Delegate {
     private var dragDismissScale: Float = 1f
     private var scrollStartTimestamp: Long = 0L
     private var dragDismissDistance: Float = Float.MAX_VALUE
+
+    private var callbacks: MutableList<Callback> = mutableListOf()
 
     override fun init(context: Context, a: TypedArray) {
         Util.checkParent(mViewGroup, a)
@@ -71,9 +74,35 @@ class VerticalDelegate(private val mViewGroup: ViewGroup) : Delegate {
 
     override fun onStopNestedScroll(child: View?) {
         // if the drag is too fast it probably was not an intentional drag but a fling, don't dismiss
-        totalDrag = 0
-        mViewGroup.translationY = totalDrag.toFloat()
+        val dragTime:Long = System.currentTimeMillis() - scrollStartTimestamp
+        if (dragTime > DRAG_DURATION_BUFFER) {
+            dispatchDismissCallback()
+        } else {
+            totalDrag = 0
+            mViewGroup.translationY = totalDrag.toFloat()
+        }
         draggingDown = false
         draggingUp = false
+    }
+
+    override fun addListener(callback: Callback) {
+        callbacks.add(callback)
+    }
+
+    override fun dispatchDismissCallback() {
+        callbacks.forEach { callback ->
+            callback.onDragDismissed()
+        }
+    }
+
+    override fun dispatchDragCallback(
+        elasticOffset: Float,
+        elasticOffsetPixels: Float,
+        rawOffset: Float,
+        rawOffsetPixels: Float
+    ) {
+        callbacks.forEach { callback ->
+            callback.onDrag(elasticOffset, elasticOffsetPixels, rawOffset, rawOffsetPixels)
+        }
     }
 }

@@ -8,6 +8,22 @@ import ml.clockvoid.gesturepack.R.attr.dragDismissFraction
 import kotlin.math.log10
 
 class HorizontalDelegate(private val mViewGroup: ViewGroup) : Delegate {
+    override fun addListener(callback: Callback) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun dispatchDragCallback(
+        elasticOffset: Float,
+        elasticOffsetPixels: Float,
+        rawOffset: Float,
+        rawOffsetPixels: Float
+    ) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun dispatchDismissCallback() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     private var draggingRight: Boolean = false
     private var draggingLeft: Boolean = false
