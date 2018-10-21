@@ -10,9 +10,13 @@ class MainActivity : AppCompatActivity(), NavigationHost {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val button: Button? = findViewById(R.id.vertical_button)
-        button?.setOnClickListener {
+        val vertical: Button? = findViewById(R.id.vertical_button)
+        val horizontal: Button? = findViewById(R.id.horizontal_button)
+        vertical?.setOnClickListener {
             navigateTo(VerticalFragment(), true)
+        }
+        horizontal?.setOnClickListener {
+            navigateTo(HorizontalFragment(), true)
         }
     }
 

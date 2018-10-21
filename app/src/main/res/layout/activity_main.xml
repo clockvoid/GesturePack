@@ -4,13 +4,25 @@
         android:layout_width="match_parent"
         android:background="@android:color/black">
 
-
-    <Button
-            android:id="@+id/vertical_button"
+    <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="vertical" />
+            android:orientation="horizontal">
 
+        <Button
+                android:id="@+id/vertical_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="vertical" />
+
+        <Button
+                android:id="@+id/horizontal_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="horizontal"/>
+
+
+    </LinearLayout>
 
     <FrameLayout
             android:id="@+id/main_frame"
