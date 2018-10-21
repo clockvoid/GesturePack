@@ -12,16 +12,10 @@
         app:dragDismissScale="0.95"
         tools:context=".VerticalFragment">
 
-    <android.support.v4.widget.NestedScrollView
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyvlerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyvlerview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-        </android.support.v7.widget.RecyclerView>
-
-    </android.support.v4.widget.NestedScrollView>
+    </android.support.v7.widget.RecyclerView>
 </ml.clockvoid.gesturepack.HorizontalDraggableFrameLayout>
