@@ -8,7 +8,7 @@ import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
 
-class HorizontalDraggableFragmnet : FrameLayout, NestedScrollingParent {
+class HorizontalDraggableFrameLayout : FrameLayout, NestedScrollingParent {
 
     constructor(context: Context) : this(context, null, 0)
 

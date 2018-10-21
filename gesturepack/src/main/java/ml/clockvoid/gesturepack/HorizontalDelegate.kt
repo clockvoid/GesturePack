@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.view.View
 import android.view.ViewGroup
+import ml.clockvoid.gesturepack.Delegate.Companion.DRAG_DURATION_BUFFER
 import ml.clockvoid.gesturepack.R.attr.dragDismissFraction
 import kotlin.math.log10
 
@@ -22,20 +23,20 @@ class HorizontalDelegate(private val mViewGroup: ViewGroup) : Delegate {
     override fun init(context: Context, a: TypedArray) {
         Util.checkParent(mViewGroup, a)
 
-        if (a.hasValue(R.styleable.DraggableFrameLayout_dragDismissDistance)) {
+        if (a.hasValue(R.styleable.VerticalDraggableFrameLayout_dragDismissDistance)) {
             dragDismissDistance = a.getDimensionPixelSize(R.styleable
-                .DraggableFrameLayout_dragDismissDistance, 0).toFloat()
-        } else if (a.hasValue(R.styleable.DraggableFrameLayout_dragDismissFraction)) {
+                .VerticalDraggableFrameLayout_dragDismissDistance, 0).toFloat()
+        } else if (a.hasValue(R.styleable.VerticalDraggableFrameLayout_dragDismissFraction)) {
             dragDismissFraction = a.getFloat(R.styleable
-                .DraggableFrameLayout_dragDismissFraction, dragDismissFraction.toFloat()
+                .VerticalDraggableFrameLayout_dragDismissFraction, dragDismissFraction.toFloat()
             ).toInt()
         }
-        if (a.hasValue(R.styleable.DraggableFrameLayout_dragDismissScale)) {
+        if (a.hasValue(R.styleable.VerticalDraggableFrameLayout_dragDismissScale)) {
             dragDismissScale = a.getFloat(R.styleable
-                .DraggableFrameLayout_dragDismissScale, dragDismissScale)
+                .VerticalDraggableFrameLayout_dragDismissScale, dragDismissScale)
         }
-        if (a.hasValue(R.styleable.DraggableFrameLayout_dragElasticity)) {
-            dragElasticity = a.getFloat(R.styleable.DraggableFrameLayout_dragElasticity,
+        if (a.hasValue(R.styleable.VerticalDraggableFrameLayout_dragElasticity)) {
+            dragElasticity = a.getFloat(R.styleable.VerticalDraggableFrameLayout_dragElasticity,
                 dragElasticity)
         }
     }
@@ -58,7 +59,7 @@ class HorizontalDelegate(private val mViewGroup: ViewGroup) : Delegate {
 
     override fun dragScale(scroll: Int) {
         if (scroll == 0) return
-        totalDrag += scroll
+        totalDrag -= scroll
 
         // track the direction & set the pivot point for scaling
         // don't double track i.e. if start dragging down and then reverse, keep tracking as
@@ -69,25 +70,25 @@ class HorizontalDelegate(private val mViewGroup: ViewGroup) : Delegate {
             draggingLeft = true
         }
 
-        // how far have we dragged relative to the distance to perform a dismiss
-        // (0–1 where 1 = dismiss distance). Decreasing logarithmically as we approach the limit
-        val dragFraction: Float = log10(1 + (Math.abs(totalDrag) / dragDismissDistance))
-
-        // calculate the desired translation given the drag fraction
-        var dragTo: Float = dragFraction * dragDismissDistance * dragElasticity
-
         if (draggingLeft) {
             // as we use the absolute magnitude when calculating the drag fraction, need to
             // re-apply the drag direction
-            dragTo *= -1
+            totalDrag *= -1
         }
-        mViewGroup.translationX = dragTo
+        mViewGroup.translationX = totalDrag.toFloat()
     }
 
     override fun onStopNestedScroll(child: View?) {
         // if the drag is too fast it probably was not an intentional drag but a fling, don't dismiss
-        totalDrag = 0
-        mViewGroup.translationX = totalDrag.toFloat()
+
+        // if the drag is too fast it probably was not an intentional drag but a fling, don't dismiss
+        val dragTime:Long = System.currentTimeMillis() - scrollStartTimestamp
+        if (dragTime > DRAG_DURATION_BUFFER) {
+            dispatchDismissCallback()
+        } else {
+            totalDrag = 0
+            mViewGroup.translationY = totalDrag.toFloat()
+        }
         draggingRight = false
         draggingLeft = false
     }

@@ -22,20 +22,20 @@ class VerticalDelegate(private val mViewGroup: ViewGroup) : Delegate {
     override fun init(context: Context, a: TypedArray) {
         Util.checkParent(mViewGroup, a)
 
-        if (a.hasValue(R.styleable.DraggableFrameLayout_dragDismissDistance)) {
+        if (a.hasValue(R.styleable.VerticalDraggableFrameLayout_dragDismissDistance)) {
             dragDismissDistance = a.getDimensionPixelSize(R.styleable
-                .DraggableFrameLayout_dragDismissDistance, 0).toFloat()
-        } else if (a.hasValue(R.styleable.DraggableFrameLayout_dragDismissFraction)) {
+                .VerticalDraggableFrameLayout_dragDismissDistance, 0).toFloat()
+        } else if (a.hasValue(R.styleable.VerticalDraggableFrameLayout_dragDismissFraction)) {
             dragDismissFraction = a.getFloat(R.styleable
-                .DraggableFrameLayout_dragDismissFraction, dragDismissFraction.toFloat()
+                .VerticalDraggableFrameLayout_dragDismissFraction, dragDismissFraction.toFloat()
             ).toInt()
         }
-        if (a.hasValue(R.styleable.DraggableFrameLayout_dragDismissScale)) {
+        if (a.hasValue(R.styleable.VerticalDraggableFrameLayout_dragDismissScale)) {
             dragDismissScale = a.getFloat(R.styleable
-                .DraggableFrameLayout_dragDismissScale, dragDismissScale)
+                .VerticalDraggableFrameLayout_dragDismissScale, dragDismissScale)
         }
-        if (a.hasValue(R.styleable.DraggableFrameLayout_dragElasticity)) {
-            dragElasticity = a.getFloat(R.styleable.DraggableFrameLayout_dragElasticity,
+        if (a.hasValue(R.styleable.VerticalDraggableFrameLayout_dragElasticity)) {
+            dragElasticity = a.getFloat(R.styleable.VerticalDraggableFrameLayout_dragElasticity,
                 dragElasticity)
         }
     }

@@ -10,8 +10,8 @@ object Util {
 
     fun checkParent(viewGroup: ViewGroup, a: TypedArray) {
         var checkParent = true
-        if (a.hasValue(R.styleable.DraggableFrameLayout_ignoreNestedScrollWarnings)) {
-            checkParent = a.getBoolean(R.styleable.DraggableFrameLayout_ignoreNestedScrollWarnings, false)
+        if (a.hasValue(R.styleable.VerticalDraggableFrameLayout_ignoreNestedScrollWarnings)) {
+            checkParent = a.getBoolean(R.styleable.VerticalDraggableFrameLayout_ignoreNestedScrollWarnings, false)
         }
         if (!checkParent) {
             return
