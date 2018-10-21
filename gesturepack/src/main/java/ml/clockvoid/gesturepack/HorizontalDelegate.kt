@@ -8,22 +8,6 @@ import ml.clockvoid.gesturepack.R.attr.dragDismissFraction
 import kotlin.math.log10
 
 class HorizontalDelegate(private val mViewGroup: ViewGroup) : Delegate {
-    override fun addListener(callback: Callback) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun dispatchDragCallback(
-        elasticOffset: Float,
-        elasticOffsetPixels: Float,
-        rawOffset: Float,
-        rawOffsetPixels: Float
-    ) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun dispatchDismissCallback() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
     private var draggingRight: Boolean = false
     private var draggingLeft: Boolean = false
@@ -32,6 +16,8 @@ class HorizontalDelegate(private val mViewGroup: ViewGroup) : Delegate {
     private var dragDismissScale: Float = 1f
     private var scrollStartTimestamp: Long = 0L
     private var dragDismissDistance: Float = Float.MAX_VALUE
+
+    private var callbacks: MutableList<Callback> = mutableListOf()
 
     override fun init(context: Context, a: TypedArray) {
         Util.checkParent(mViewGroup, a)
@@ -104,5 +90,26 @@ class HorizontalDelegate(private val mViewGroup: ViewGroup) : Delegate {
         mViewGroup.translationX = totalDrag.toFloat()
         draggingRight = false
         draggingLeft = false
+    }
+
+    override fun addListener(callback: Callback) {
+        callbacks.add(callback)
+    }
+
+    override fun dispatchDismissCallback() {
+        callbacks.forEach { callback ->
+            callback.onDragDismissed()
+        }
+    }
+
+    override fun dispatchDragCallback(
+        elasticOffset: Float,
+        elasticOffsetPixels: Float,
+        rawOffset: Float,
+        rawOffsetPixels: Float
+    ) {
+        callbacks.forEach { callback ->
+            callback.onDrag(elasticOffset, elasticOffsetPixels, rawOffset, rawOffsetPixels)
+        }
     }
 }
