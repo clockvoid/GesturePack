@@ -18,11 +18,11 @@ class DraggableFrameLayout : FrameLayout, NestedScrollingParent {
         init(context, attrs)
     }
 
-    private var delegate = Delegate(this)
+    private var delegate = VerticalDelegate(this)
 
     private fun init(context: Context, attrs: AttributeSet?) {
         Log.d("init", "init called")
-        val a: TypedArray = getContext().obtainStyledAttributes(attrs, R.styleable.DraggableFrameLayout, 0, 0);
+        val a: TypedArray = getContext().obtainStyledAttributes(attrs, R.styleable.DraggableFrameLayout, 0, 0)
         delegate.init(context, a)
         a.recycle()
     }
