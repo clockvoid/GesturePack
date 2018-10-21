@@ -21,6 +21,6 @@ interface Delegate {
     companion object {
         //copied from View in API 21
         const val SCROLL_AXIS_VERTICAL: Int = 1 shl 1
-        const val SCROLL_AXIS_HOIRIZONTAL: Int = 1
+        const val SCROLL_AXIS_HORIZONTAL: Int = 1
     }
 }
