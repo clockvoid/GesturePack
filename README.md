@@ -13,14 +13,14 @@ Androidでジェスチャーを使用したUIを作成するためのライブ�
 
 ```groovy
 allprojects {
-	repositories {
-		...
-		maven { url 'https://jitpack.io' }
-	}
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
 }
 
 dependencies {
-	implementation 'com.github.clockvoid:GesturePack:0.1.0'
+    implementation 'com.github.clockvoid:GesturePack:0.1.0'
 }
 ```
 
