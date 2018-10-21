@@ -47,7 +47,7 @@ class HorizontalDelegate(private val mViewGroup: ViewGroup) : Delegate {
 
     override fun onStartNestedScroll(child: View, target: View, nestedScrollAxes: Int): Boolean {
         scrollStartTimestamp = System.currentTimeMillis()
-        return (nestedScrollAxes and Delegate.SCROLL_AXIS_VERTICAL) != 0
+        return (nestedScrollAxes and Delegate.SCROLL_AXIS_HOIRIZONTAL) != 0
     }
 
     override fun onNestedScroll(target: View, dxConsumed: Int, dyConsumed: Int, dxUnconsumed: Int, dyUnconsumed: Int) {
