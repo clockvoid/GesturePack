@@ -2,53 +2,22 @@ package ml.clockvoid.gesturepack
 
 import android.content.Context
 import android.content.res.TypedArray
-import android.support.v4.view.NestedScrollingParent
 import android.support.v4.widget.NestedScrollView
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
-import ml.clockvoid.gesturepack.Delegate.Companion.DRAG_DURATION_BUFFER
 import ml.clockvoid.gesturepack.R.attr.dragDismissFraction
-import kotlin.math.log10
 
-class HorizontalDelegate(private val mViewGroup: ViewGroup) : Delegate {
+class HorizontalDelegate(mViewGroup: ViewGroup) : Delegate(mViewGroup) {
 
     private var draggingRight: Boolean = false
     private var draggingLeft: Boolean = false
-    private var totalDrag: Int = 0
-    private var dragElasticity: Float = 0.8f
-    private var dragDismissScale: Float = 1f
-    private var scrollStartTimestamp: Long = 0L
-    private var dragDismissDistance: Float = Float.MAX_VALUE
-
-    private var callbacks: MutableList<Callback> = mutableListOf()
-
-    override fun init(context: Context, a: TypedArray) {
-        Util.checkParent(mViewGroup, a)
-
-        if (a.hasValue(R.styleable.VerticalDraggableFrameLayout_dragDismissDistance)) {
-            dragDismissDistance = a.getDimensionPixelSize(R.styleable
-                .VerticalDraggableFrameLayout_dragDismissDistance, 0).toFloat()
-        } else if (a.hasValue(R.styleable.VerticalDraggableFrameLayout_dragDismissFraction)) {
-            dragDismissFraction = a.getFloat(R.styleable
-                .VerticalDraggableFrameLayout_dragDismissFraction, dragDismissFraction.toFloat()
-            ).toInt()
-        }
-        if (a.hasValue(R.styleable.VerticalDraggableFrameLayout_dragDismissScale)) {
-            dragDismissScale = a.getFloat(R.styleable
-                .VerticalDraggableFrameLayout_dragDismissScale, dragDismissScale)
-        }
-        if (a.hasValue(R.styleable.VerticalDraggableFrameLayout_dragElasticity)) {
-            dragElasticity = a.getFloat(R.styleable.VerticalDraggableFrameLayout_dragElasticity,
-                dragElasticity)
-        }
-    }
 
     override fun onNestedPreScroll(target: View, dx: Int, dy: Int, consumed: IntArray) {
-        //if (draggingRight && dx < 0 || draggingLeft && dx > 0) {
-        //    dragScale(dx)
-        //    consumed[1] = dx
-        //}
+        if (draggingRight && dx < 0 || draggingLeft && dx > 0) {
+            dragScale(dx)
+            consumed[1] = dx
+        }
     }
 
     override fun onStartNestedScroll(child: View, target: View, nestedScrollAxes: Int): Boolean {
@@ -93,26 +62,5 @@ class HorizontalDelegate(private val mViewGroup: ViewGroup) : Delegate {
         }
         draggingRight = false
         draggingLeft = false
-    }
-
-    override fun addListener(callback: Callback) {
-        callbacks.add(callback)
-    }
-
-    override fun dispatchDismissCallback() {
-        callbacks.forEach { callback ->
-            callback.onDragDismissed()
-        }
-    }
-
-    override fun dispatchDragCallback(
-        elasticOffset: Float,
-        elasticOffsetPixels: Float,
-        rawOffset: Float,
-        rawOffsetPixels: Float
-    ) {
-        callbacks.forEach { callback ->
-            callback.onDrag(elasticOffset, elasticOffsetPixels, rawOffset, rawOffsetPixels)
-        }
     }
 }

@@ -1,44 +1,12 @@
 package ml.clockvoid.gesturepack
 
-import android.content.Context
-import android.content.res.TypedArray
 import android.view.View
 import android.view.ViewGroup
-import ml.clockvoid.gesturepack.Delegate.Companion.DRAG_DURATION_BUFFER
-import ml.clockvoid.gesturepack.R.attr.dragDismissFraction
 
-class VerticalDelegate(private val mViewGroup: ViewGroup) : Delegate {
+class VerticalDelegate(mViewGroup: ViewGroup) : Delegate(mViewGroup) {
 
     private var draggingDown: Boolean = false
     private var draggingUp: Boolean = false
-    private var totalDrag: Int = 0
-    private var dragElasticity: Float = 0.8f
-    private var dragDismissScale: Float = 1f
-    private var scrollStartTimestamp: Long = 0L
-    private var dragDismissDistance: Float = Float.MAX_VALUE
-
-    private var callbacks: MutableList<Callback> = mutableListOf()
-
-    override fun init(context: Context, a: TypedArray) {
-        Util.checkParent(mViewGroup, a)
-
-        if (a.hasValue(R.styleable.VerticalDraggableFrameLayout_dragDismissDistance)) {
-            dragDismissDistance = a.getDimensionPixelSize(R.styleable
-                .VerticalDraggableFrameLayout_dragDismissDistance, 0).toFloat()
-        } else if (a.hasValue(R.styleable.VerticalDraggableFrameLayout_dragDismissFraction)) {
-            dragDismissFraction = a.getFloat(R.styleable
-                .VerticalDraggableFrameLayout_dragDismissFraction, dragDismissFraction.toFloat()
-            ).toInt()
-        }
-        if (a.hasValue(R.styleable.VerticalDraggableFrameLayout_dragDismissScale)) {
-            dragDismissScale = a.getFloat(R.styleable
-                .VerticalDraggableFrameLayout_dragDismissScale, dragDismissScale)
-        }
-        if (a.hasValue(R.styleable.VerticalDraggableFrameLayout_dragElasticity)) {
-            dragElasticity = a.getFloat(R.styleable.VerticalDraggableFrameLayout_dragElasticity,
-                dragElasticity)
-        }
-    }
 
     override fun onNestedPreScroll(target: View, dx: Int, dy: Int, consumed: IntArray) {
         if (draggingDown && dy > 0 || draggingUp && dy < 0) {
@@ -83,26 +51,5 @@ class VerticalDelegate(private val mViewGroup: ViewGroup) : Delegate {
         }
         draggingDown = false
         draggingUp = false
-    }
-
-    override fun addListener(callback: Callback) {
-        callbacks.add(callback)
-    }
-
-    override fun dispatchDismissCallback() {
-        callbacks.forEach { callback ->
-            callback.onDragDismissed()
-        }
-    }
-
-    override fun dispatchDragCallback(
-        elasticOffset: Float,
-        elasticOffsetPixels: Float,
-        rawOffset: Float,
-        rawOffsetPixels: Float
-    ) {
-        callbacks.forEach { callback ->
-            callback.onDrag(elasticOffset, elasticOffsetPixels, rawOffset, rawOffsetPixels)
-        }
     }
 }
