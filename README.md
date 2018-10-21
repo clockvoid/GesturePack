@@ -1,10 +1,28 @@
 # GesturePack
 A set of Gesture enabled UIs for Android
 
+[![](https://jitpack.io/v/clockvoid/GesturePack.svg)](https://jitpack.io/#clockvoid/GesturePack)
+
 ## Description
 Androidでジェスチャーを使用したUIを作成するためのライブラリです．
 
 いくつかのジェスチャーが用意されており，自分の使いたいジェスチャーが実装されたView部品を自分のプロジェクトに追加するだけでジェスチャー対応のアプリができます．
+
+## Installation
+`build.gradle`に下記を追加してください．
+
+```groovy
+allprojects {
+	repositories {
+		...
+		maven { url 'https://jitpack.io' }
+	}
+}
+
+dependencies {
+	implementation 'com.github.clockvoid:GesturePack:0.1.0'
+}
+```
 
 ## Usage
 今のところ，用意されているのは横方向にスワイプすると戻るジェスチャーと，縦方向にスワイプすると戻るジェスチャーの`FrameLayout`に対する実装です．
