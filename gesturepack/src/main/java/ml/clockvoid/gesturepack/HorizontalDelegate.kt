@@ -13,7 +13,7 @@ class HorizontalDelegate(mViewGroup: ViewGroup) : Delegate(mViewGroup) {
     override fun onNestedPreScroll(target: View, dx: Int, dy: Int, consumed: IntArray) {
         if (draggingRight && dx < 0 || draggingLeft && dx > 0) {
             dragScale(dx)
-            consumed[1] = dx
+            consumed[0] = dx
         }
     }
 
