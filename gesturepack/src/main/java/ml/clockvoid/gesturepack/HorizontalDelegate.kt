@@ -39,11 +39,6 @@ class HorizontalDelegate(mViewGroup: ViewGroup) : Delegate(mViewGroup) {
             draggingLeft = true
         }
 
-        if (draggingLeft) {
-            // as we use the absolute magnitude when calculating the drag fraction, need to
-            // re-apply the drag direction
-            totalDrag *= -1
-        }
         mViewGroup.translationX = totalDrag.toFloat()
     }
 
