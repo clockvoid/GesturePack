@@ -3,6 +3,8 @@ A set of Gesture enabled UIs for Android
 
 [![](https://jitpack.io/v/clockvoid/GesturePack.svg)](https://jitpack.io/#clockvoid/GesturePack)
 
+![](https://i.imgur.com/ZROm1RE.gif)
+
 ## Description
 Androidでジェスチャーを使用したUIを作成するためのライブラリです．
 
