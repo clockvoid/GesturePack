@@ -1,12 +1,9 @@
 package ml.clockvoid.gesturepack
 
-import android.content.Context
-import android.content.res.TypedArray
 import android.support.v4.widget.NestedScrollView
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
-import ml.clockvoid.gesturepack.R.attr.dragDismissFraction
 
 class HorizontalDelegate(mViewGroup: ViewGroup) : Delegate(mViewGroup) {
 
