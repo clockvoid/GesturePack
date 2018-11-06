@@ -14,7 +14,7 @@ abstract class Delegate(protected val mViewGroup: ViewGroup) {
     protected var scrollStartTimestamp: Long = 0L
     protected var dragDismissDistance: Float = Float.MAX_VALUE
 
-    protected var callbacks: MutableList<Callback> = mutableListOf()
+    private var callbacks: MutableList<Callback> = mutableListOf()
 
     open fun init(context: Context, a: TypedArray) {
         Util.checkParent(mViewGroup, a)
