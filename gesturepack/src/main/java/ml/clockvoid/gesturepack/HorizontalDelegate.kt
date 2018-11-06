@@ -1,6 +1,5 @@
 package ml.clockvoid.gesturepack
 
-import android.support.v4.widget.NestedScrollView
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +18,7 @@ class HorizontalDelegate(mViewGroup: ViewGroup) : Delegate(mViewGroup) {
 
     override fun onStartNestedScroll(child: View, target: View, nestedScrollAxes: Int): Boolean {
         scrollStartTimestamp = System.currentTimeMillis()
-        return (nestedScrollAxes and NestedScrollView.SCROLL_AXIS_HORIZONTAL) != 0
+        return (nestedScrollAxes and Delegate.SCROLL_AXIS_HORIZONTAL) != 0
     }
 
     override fun onNestedScroll(target: View, dxConsumed: Int, dyConsumed: Int, dxUnconsumed: Int, dyUnconsumed: Int) {
