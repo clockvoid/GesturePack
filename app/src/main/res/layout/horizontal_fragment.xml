@@ -10,7 +10,7 @@
         android:background="@android:color/white"
         app:dragDismissDistance="500dp"
         app:dragDismissScale="0.95"
-        tools:context=".VerticalFragment">
+        tools:context=".HorizontalFragment">
 
     <android.support.v7.widget.RecyclerView
             android:id="@+id/recyvlerview"
