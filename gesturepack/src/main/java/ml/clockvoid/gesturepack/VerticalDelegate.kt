@@ -1,5 +1,6 @@
 package ml.clockvoid.gesturepack
 
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 
@@ -17,6 +18,7 @@ class VerticalDelegate(mViewGroup: ViewGroup) : Delegate(mViewGroup) {
 
     override fun onStartNestedScroll(child: View, target: View, nestedScrollAxes: Int): Boolean {
         scrollStartTimestamp = System.currentTimeMillis()
+        Log.d("nestedScrollAxes", "$nestedScrollAxes")
         return (nestedScrollAxes and Delegate.SCROLL_AXIS_VERTICAL) != 0
     }
 
@@ -40,7 +42,7 @@ class VerticalDelegate(mViewGroup: ViewGroup) : Delegate(mViewGroup) {
         mViewGroup.translationY = totalDrag.toFloat()
     }
 
-    override fun onStopNestedScroll(child: View?) {
+    override fun onStopNestedScroll(child: View) {
         // if the drag is too fast it probably was not an intentional drag but a fling, don't dismiss
         val dragTime: Long = System.currentTimeMillis() - scrollStartTimestamp
         if (dragTime > DRAG_DURATION_BUFFER) {
