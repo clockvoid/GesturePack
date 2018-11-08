@@ -50,7 +50,7 @@ abstract class Delegate(protected val mViewGroup: ViewGroup) {
     open fun dragScale(scroll: Int) {
     }
 
-    open fun onStopNestedScroll(child: View?) {
+    open fun onStopNestedScroll(child: View) {
     }
 
     open fun addListener(callback: Callback) {
