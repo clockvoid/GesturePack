@@ -18,6 +18,7 @@ class HorizontalDelegate(mViewGroup: ViewGroup) : Delegate(mViewGroup) {
 
     override fun onStartNestedScroll(child: View, target: View, nestedScrollAxes: Int): Boolean {
         scrollStartTimestamp = System.currentTimeMillis()
+        Log.d("nestedScrollAxes", "$nestedScrollAxes")
         return (nestedScrollAxes and Delegate.SCROLL_AXIS_HORIZONTAL) != 0
     }
 
@@ -41,7 +42,7 @@ class HorizontalDelegate(mViewGroup: ViewGroup) : Delegate(mViewGroup) {
         mViewGroup.translationX = totalDrag.toFloat()
     }
 
-    override fun onStopNestedScroll(child: View?) {
+    override fun onStopNestedScroll(child: View) {
         Log.d("stop scrolling", "when translationX is $totalDrag")
         // if the drag is too fast it probably was not an intentional drag but a fling, don't dismiss
         val dragTime:Long = System.currentTimeMillis() - scrollStartTimestamp
