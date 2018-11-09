@@ -6,12 +6,12 @@ A set of Gesture enabled UIs for Android
 ![](https://i.imgur.com/ZROm1RE.gif)
 
 ## Description
-Androidでジェスチャーを使用したUIを作成するためのライブラリです．
+This is an Android library to make UI with gestures.
 
-いくつかのジェスチャーが用意されており，自分の使いたいジェスチャーが実装されたView部品を自分のプロジェクトに追加するだけでジェスチャー対応のアプリができます．
+There are some gestures in this library, and you can use View structure with gesture implemented.
 
 ## Installation
-`build.gradle`に下記を追加してください．
+Add these code in your `build.gradle`.
 
 ```groovy
 allprojects {
@@ -22,14 +22,14 @@ allprojects {
 }
 
 dependencies {
-    implementation 'com.github.clockvoid:GesturePack:0.1.0'
+    implementation 'com.github.clockvoid:GesturePack:Tag'
 }
 ```
 
 ## Usage
-今のところ，用意されているのは横方向にスワイプすると戻るジェスチャーと，縦方向にスワイプすると戻るジェスチャーの`FrameLayout`に対する実装です．
+For now, I implement a gesture for `FrameLayout` that swipe horizontally to back and swipe vertically to back
 
-縦方向にスワイプするタイプでは，`VerticalDraggableFrameLayout`の中に`NestedScrollView`などの縦にスクロールするViewを入れ，その下に自分の使いたいViewを追加します．
-このライブラリでは，縦のスクロールが可能なUIに対して，縦方向のジェスチャーをつけることができ，中のViewのスクロールが終わったら，ジェスチャーが開始します．
+To use vertical type gesture, you have to implement `VerticalDraggableFrameLayout` on vertical scrollable view like `NestedScrollView`.
+And implement your view in the the `NestedScrollView`.
 
-横方法にスワイプするタイプでは，`HorizontalDraggableFrameLayout`の中に`RecylerView`などの横方向のスクロールに対応したViewを入れ，その下に自分の使いたいViewを追加します．
+To use horizontal type gesture, you have to implement `HorizontalDraggableFrameLayout` on horizontal scrollable view like `RecyclerView`.
